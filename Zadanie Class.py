@@ -19,6 +19,19 @@ class Student:
         else:
             return 'Ошибка'
 
+    def __str__(self):
+        grades_len = 0
+        finished_courses_str = ', '.join(self.finished_courses)
+        courses_in_progress_str = ', '.join(self.courses_in_progress)
+        for x in self.grades:
+            grades_len += len(self.grades[x])
+        self.average_rating = sum(map(sum, self.grades.values())) / grades_len
+        res = f'Имя: {self.name}\nФамилия: {self.surname}\n' \
+                f'Средняя оценка за домашнее задание: {self.average_rating}\n' \
+                f'Курсы в процессе изучения: {courses_in_progress_str}\n' \
+                f'Завершенные курсы: {finished_courses_str}'
+        return res
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -28,9 +41,18 @@ class Mentor:
 
 
 class Lecturer(Mentor):
-    super.__init__(name, surname)
-    self.grades = {}
-    pass
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
+        self.grades = {}
+        self.average_rating = float()
+
+    def __str__(self):
+        grades_len = 0
+        for x in self.grades:
+            grades_len += len(self.grades[x])
+        self.average_rating = sum(map(sum, self.grades.value())) / grades_len
+        res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.average_rating}'
+        return res
 
 
 class Reviewer(Mentor):
@@ -42,6 +64,10 @@ class Reviewer(Mentor):
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
+
+    def __str__(self):
+        res = f'Имя: {self.name}\nФамилия: {self.surname}'
+        return res
 
 
 
@@ -55,4 +81,6 @@ cool_reviewer.rate_hw(best_student, 'Python', 10)
 cool_reviewer.rate_hw(best_student, 'Python', 10)
 cool_reviewer.rate_hw(best_student, 'Python', 10)
 
-print(best_student.grades)
+#print(best_student.grades)
+
+print(cool_reviewer)
