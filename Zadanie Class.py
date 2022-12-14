@@ -32,6 +32,12 @@ class Student:
                 f'Завершенные курсы: {finished_courses_str}'
         return res
 
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            print('Некорректное сравнение')
+            return
+        return self.average_rating < other.average_rating
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -53,6 +59,12 @@ class Lecturer(Mentor):
         self.average_rating = sum(map(sum, self.grades.value())) / grades_len
         res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.average_rating}'
         return res
+
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            print('Некорректное сравнение')
+            return
+        return self.average_rating < other.average_rating
 
 
 class Reviewer(Mentor):
